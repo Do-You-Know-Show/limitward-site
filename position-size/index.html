@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Position size calculator: stocks, futures, forex, crypto, options</title>
+<meta name="description" content="Free position size calculator. Enter your account risk and stop distance and get the exact size for stocks, futures, forex, crypto and options, with fees included.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="../index.html">Rulebound</a>
+<nav class="main" aria-label="Main">
+<a href="../position-size/index.html" aria-current="page">Position size</a>
+<a href="../prop-firm-drawdown/index.html">Prop-firm drawdown</a>
+<a href="../firms/index.html">Firm rules</a>
+</nav></div></header>
+<main class="wrap">
+<h1>Position size calculator</h1>
+<p class="lede">Decide how much you are willing to lose first. This works out the size that keeps a stop-out inside that amount, rounded down, with fees included.</p>
+<section class="tool" id="position-size">
+<div class="tabs" role="group" aria-label="Asset type"></div>
+<div class="row">
+<div><label for="riskMode">Risk is set as</label><select id="riskMode"><option value="pct">% of account</option><option value="usd">Dollar amount</option></select></div>
+<div id="acctWrap"><label for="equity">Account size ($)</label><input id="equity" type="number" inputmode="decimal" step="any"></div>
+<div><label for="riskVal" id="riskLabel">Risk per trade (% of account)</label><input id="riskVal" type="number" inputmode="decimal" step="any" value="1"></div>
+</div>
+<div id="fields"></div>
+<button id="go" type="button">Calculate size</button>
+<div class="error" id="err" role="alert"></div>
+<div id="out" role="status" aria-live="polite"></div>
+</section>
+<h2>How the maths works</h2>
+<ul class="plain">
+<li><strong>Stocks:</strong> size = (risk − commissions) ÷ (|entry − stop| + per-share costs), rounded down.</li>
+<li><strong>Futures:</strong> tick value = contract multiplier × tick size. Risk per contract = stop distance in ticks × tick value + round-trip fees.</li>
+<li><strong>Forex:</strong> pip value per unit = pip size × quote-to-account rate. Units = risk ÷ (stop pips × pip value per unit).</li>
+<li><strong>Crypto:</strong> quantity = risk ÷ (|entry − stop| + fees per unit). Margin = position value ÷ leverage.</li>
+<li><strong>Options:</strong> long options risk the premium × 100 per contract. A credit spread risks (width − credit) × 100 per contract.</li>
+</ul>
+<p>Size is always rounded <em>down</em> so the result never exceeds your risk limit. Exchange specifications such as tick values should be confirmed against your broker or the exchange.</p>
+<section class="waitlist" aria-labelledby="wl-h">
+<h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
+<p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
+<form class="wl" novalidate>
+<input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
+<button type="submit">Join the waitlist</button>
+</form>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
+</main>
+<footer class="site"><div class="wrap">
+<p>Rulebound calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
+</div></footer>
+<script src="../js/config.js"></script>
+<script src="../js/calc.js"></script>
+<script src="../js/presets.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

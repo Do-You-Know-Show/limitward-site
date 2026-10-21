@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTMO drawdown calculator and rules explained</title>
+<meta name="description" content="Free FTMO drawdown calculator. See your loss-limit floor, remaining buffer and a safe per-trade risk. Max Daily Loss is 5% of initial capital, measured on equity and recalculated at 00:00 CE(S)T from your balance at that time. Max Loss is a static 10% of initial capital.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="../../index.html">Rulebound</a>
+<nav class="main" aria-label="Main">
+<a href="../../position-size/index.html">Position size</a>
+<a href="../../prop-firm-drawdown/index.html">Prop-firm drawdown</a>
+<a href="../../firms/index.html" aria-current="page">Firm rules</a>
+</nav></div></header>
+<main class="wrap">
+<h1>FTMO drawdown calculator</h1>
+<p class="lede">FTMO 2-Step Challenge (forex / CFD): Max Daily Loss is 5% of initial capital, measured on equity and recalculated at 00:00 CE(S)T from your balance at that time. Max Loss is a static 10% of initial capital.</p>
+<section class="tool" id="drawdown" data-firm="ftmo">
+<div class="row">
+<div><label for="firm">Firm</label><select id="firm"></select></div>
+<div><label for="acct">Account size</label><select id="acct"></select></div>
+<div><label for="startBal">Starting balance ($)</label><input id="startBal" type="number" inputmode="decimal" step="any"></div>
+</div>
+<div id="customBox" style="display:none"><div class="row">
+<div><label for="model">Max-loss type</label><select id="model">
+<option value="static">Static (fixed floor)</option>
+<option value="trailing_eod">Trailing on end-of-day balance (locks at start)</option>
+<option value="trailing_eod_nolock">Trailing on end-of-day balance (no lock)</option>
+<option value="trailing_intraday">Trailing on intraday equity (locks at start)</option></select></div>
+<div><label for="maxLoss">Max loss ($)</label><input id="maxLoss" type="number" inputmode="decimal" step="any"></div>
+<div><label for="dailyLoss">Daily loss limit ($, optional)</label><input id="dailyLoss" type="number" inputmode="decimal" step="any"></div>
+</div></div>
+<div class="row">
+<div><label for="equity">Current equity ($)</label><input id="equity" type="number" inputmode="decimal" step="any"><div class="hint">Balance plus open profit or loss.</div></div>
+<div><label for="dayStart">Balance at start of today ($)</label><input id="dayStart" type="number" inputmode="decimal" step="any"><div class="hint">Used for daily-loss rules. Blank = starting balance.</div></div>
+<div id="peakWrap"><label for="peakEod">Highest end-of-day balance so far ($)</label><input id="peakEod" type="number" inputmode="decimal" step="any"><div class="hint">Moves the trailing floor. Blank = starting balance.</div></div>
+</div>
+<div class="row">
+<div><label for="usePct">Use this share of the buffer (%)</label><input id="usePct" type="number" inputmode="decimal" step="any" value="50"></div>
+<div><label for="stopOuts">Survive this many full stop-outs in a row</label><input id="stopOuts" type="number" inputmode="decimal" step="1" value="2"></div>
+</div>
+<div class="row">
+<div><label for="inst">Futures contract (optional)</label><select id="inst"></select></div>
+<div><label for="stopPts">Stop distance in points (optional)</label><input id="stopPts" type="number" inputmode="decimal" step="any"></div>
+<div><label for="feeRt">Round-trip fee per contract ($)</label><input id="feeRt" type="number" inputmode="decimal" step="any" value="0"></div>
+</div>
+<button id="go" type="button">Calculate</button>
+<div class="error" id="err" role="alert"></div>
+<div id="out" role="status" aria-live="polite"></div>
+</section>
+<h2>How "safe risk per trade" is worked out</h2>
+<p>It takes the room between your equity and the binding floor (the closer of the max-loss and daily-loss limits), uses only the share you choose (50% by default), and splits it across the number of full stop-outs you want to survive in a row (2 by default). This is a conservative planning aid, not a prediction or a recommendation.</p>
+<h2>FTMO rules in plain English</h2>
+<ul class="plain"><li>Daily loss is measured on equity: balance + open P/L ± swaps – commissions.</li><li>The max loss floor is static: it does not move up with profits.</li><li>The same percentages apply to the Challenge and Verification phases. The 1-Step and Instant products use different numbers.</li></ul>
+<p><span class="badge">Checked 2026-10-20</span> Source: <a href="https://ftmo.com/en/trading-objectives/" rel="noopener">https://ftmo.com/en/trading-objectives/</a>. Rules change: confirm with FTMO before relying on this.</p>
+<section class="waitlist" aria-labelledby="wl-h">
+<h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
+<p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
+<form class="wl" novalidate>
+<input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
+<button type="submit">Join the waitlist</button>
+</form>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
+</main>
+<footer class="site"><div class="wrap">
+<p>Rulebound calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
+</div></footer>
+<script src="../../js/config.js"></script>
+<script src="../../js/calc.js"></script>
+<script src="../../js/presets.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>
