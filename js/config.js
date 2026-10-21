@@ -2,5 +2,5 @@
    While empty, the form says the waitlist is not open yet and stores nothing. */
 window.SITE_CONFIG = {
   WAITLIST_ENDPOINT: '',
-  BRAND: 'Rulebound'
+  BRAND: 'Limitward'
 };
