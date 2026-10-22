@@ -219,12 +219,15 @@
       form.addEventListener('submit', function (ev) {
         ev.preventDefault();
         var msg = $('.msg', form.parentNode), email = form.elements.email.value.trim();
+        var consent = !!(form.elements.consent && form.elements.consent.checked);
         var url = (window.SITE_CONFIG || {}).WAITLIST_ENDPOINT;
         if (!/^\S+@\S+\.\S+$/.test(email)) { msg.textContent = 'Please enter a valid email address.'; return; }
+        if (!consent) { msg.textContent = 'Please tick the box to agree to receive emails.'; return; }
         if (!url) { msg.textContent = 'The waitlist is not open yet. Please check back soon.'; return; }
         msg.textContent = 'Sending…';
-        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: location.pathname }) })
-          .then(function (r) { if (!r.ok) throw new Error(); msg.textContent = 'You are on the list. Thank you.'; form.reset(); })
+        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, consent: true, website: form.elements.website ? form.elements.website.value : '', source: location.pathname }) })
+          .then(function (r) { if (r.status === 429) { msg.textContent = 'Too many attempts. Please try again later.'; return; }
+            if (!r.ok) throw new Error(); msg.textContent = 'You are on the list. Thank you.'; form.reset(); })
           .catch(function () { msg.textContent = 'Something went wrong. Please try again.'; });
       });
     });

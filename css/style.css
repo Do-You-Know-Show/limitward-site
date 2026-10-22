@@ -65,3 +65,7 @@ footer.site { border-top: 1px solid var(--line); margin-top: 48px; padding: 24px
 ul.plain { padding-left: 20px; } ul.plain li { margin-bottom: 6px; }
 .badge { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--brand-tint); color: var(--brand); font-weight: 600; }
 @media (max-width: 480px) { .tool, .card, .waitlist { padding: 16px; } }
+
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.waitlist .consent { display: flex; gap: 8px; align-items: flex-start; flex-basis: 100%; font-size: 13px; color: var(--muted); margin: 0; }
+.waitlist .consent input { width: 20px; min-height: 20px; margin-top: 2px; flex: none; }
