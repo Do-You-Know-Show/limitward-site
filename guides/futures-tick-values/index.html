@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Futures tick values: ES, MES, NQ, MNQ, CL and GC</title>
+<meta name="description" content="Tick size and tick value for ES, MES, NQ, MNQ, CL and GC futures, and how to turn a stop in points into dollars per contract.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://limitward.app/guides/futures-tick-values/">
+<meta name="theme-color" content="#0f6b5c">
+<meta property="og:site_name" content="Limitward">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Futures tick values: ES, MES, NQ, MNQ, CL and GC">
+<meta property="og:description" content="Tick size and tick value for ES, MES, NQ, MNQ, CL and GC futures, and how to turn a stop in points into dollars per contract.">
+<meta property="og:url" content="https://limitward.app/guides/futures-tick-values/">
+<meta property="og:image" content="https://limitward.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Futures tick values: ES, MES, NQ, MNQ, CL and GC">
+<meta name="twitter:description" content="Tick size and tick value for ES, MES, NQ, MNQ, CL and GC futures, and how to turn a stop in points into dollars per contract.">
+<meta name="twitter:image" content="https://limitward.app/og.png">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Futures tick values","description":"Tick size and tick value for ES, MES, NQ, MNQ, CL and GC futures, and how to turn a stop in points into dollars per contract.","datePublished":"2026-10-25","dateModified":"2026-10-25","author":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"},"mainEntityOfPage":"https://limitward.app/guides/futures-tick-values/","image":"https://limitward.app/og.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://limitward.app/guides/"},{"@type":"ListItem","position":3,"name":"Futures tick values","item":"https://limitward.app/guides/futures-tick-values/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the tick value of ES?","acceptedAnswer":{"@type":"Answer","text":"ES moves in 0.25-point ticks, each worth $12.50. That is a $50 multiplier times 0.25."}},{"@type":"Question","name":"What is the tick value of MNQ?","acceptedAnswer":{"@type":"Answer","text":"MNQ moves in 0.25-point ticks worth $0.50 each, from a $2 multiplier times 0.25."}},{"@type":"Question","name":"How do I convert points to dollars?","acceptedAnswer":{"@type":"Answer","text":"Divide the points by the tick size to get ticks, then multiply by the tick value. Multiply by the number of contracts for the total."}}]}</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="../../">Limitward</a>
+<nav class="main" aria-label="Main">
+<a href="../../position-size/">Position size</a>
+<a href="../../prop-firm-drawdown/">Prop-firm drawdown</a>
+<a href="../../firms/">Firm rules</a>
+<a href="../../guides/" aria-current="page">Guides</a>
+</nav></div></header>
+<main class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Home</a> › <a href="../">Guides</a> › <span>Futures tick values</span></nav>
+<article>
+<h1>Futures tick values</h1>
+<p class="lede">To size a futures trade you need the dollar value of each tick. Tick value is the contract multiplier times the tick size.</p>
+<h2>Tick values at a glance</h2>
+<div class="tablewrap"><table><thead><tr><th>Symbol</th><th>Contract</th><th>Value of a 1.00 move</th><th>Tick size</th><th>Tick value</th></tr></thead><tbody><tr><td>ES</td><td>E-mini S&P 500</td><td>$50</td><td>0.25</td><td>$12.50</td></tr><tr><td>MES</td><td>Micro E-mini S&P 500</td><td>$5</td><td>0.25</td><td>$1.25</td></tr><tr><td>NQ</td><td>E-mini Nasdaq-100</td><td>$20</td><td>0.25</td><td>$5.00</td></tr><tr><td>MNQ</td><td>Micro E-mini Nasdaq-100</td><td>$2</td><td>0.25</td><td>$0.50</td></tr><tr><td>CL</td><td>Crude Oil</td><td>$1,000</td><td>0.01</td><td>$10.00</td></tr><tr><td>GC</td><td>Gold</td><td>$100</td><td>0.1</td><td>$10.00</td></tr></tbody></table></div>
+<p>Confirm tick sizes and values on your broker's or the exchange's contract specification page before you rely on them. Contracts and their specifications can change.</p>
+<h2>From points to dollars</h2>
+<p>Number of ticks = stop distance ÷ tick size. Dollars per contract = ticks × tick value. For ES, a 4-point stop is 16 ticks, and 16 × $12.50 = $200 per contract. The same 4 points on MES, the micro contract, is $20.</p>
+<h2>Micros versus minis</h2>
+<p>Micro contracts are a tenth of the size of their E-mini counterparts, which lets you size a trade more precisely when your risk budget is small. The multiplier is the only difference in the formula.</p>
+<h2>Use it</h2>
+<p>The <a href="../../position-size/">position size calculator</a> has these contracts built in, and the <a href="../position-size-formula/">position size guide</a> shows the full method including fees.</p>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<h3>What is the tick value of ES?</h3>
+<p>ES moves in 0.25-point ticks, each worth $12.50. That is a $50 multiplier times 0.25.</p>
+<h3>What is the tick value of MNQ?</h3>
+<p>MNQ moves in 0.25-point ticks worth $0.50 each, from a $2 multiplier times 0.25.</p>
+<h3>How do I convert points to dollars?</h3>
+<p>Divide the points by the tick size to get ticks, then multiply by the tick value. Multiply by the number of contracts for the total.</p>
+</section>
+<h2>Related guides</h2>
+<ul class="plain"><li><a href="../position-size-formula/">How to calculate position size</a></li><li><a href="../trailing-drawdown-explained/">Trailing drawdown explained</a></li></ul>
+<p class="ctarow"><a class="btn" href="../../position-size/">Position size calculator</a> <a class="btn" href="../../prop-firm-drawdown/">Prop-firm drawdown calculator</a></p>
+<p class="hint">Last updated 2026-10-25. Educational information only, not investment advice.</p>
+</article>
+<section class="waitlist" aria-labelledby="wl-h">
+<h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
+<p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
+<form class="wl" novalidate>
+<input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
+<button type="submit">Join the waitlist</button>
+<div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../../privacy/">privacy policy</a>.</span></label>
+</form>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
+</main>
+<footer class="site"><div class="wrap">
+<p>Limitward calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
+<p><a href="../../guides/">Guides</a> · <a href="../../privacy/">Privacy policy</a></p>
+</div></footer>
+<script src="../../js/config.js"></script>
+<script src="../../js/calc.js"></script>
+<script src="../../js/presets.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

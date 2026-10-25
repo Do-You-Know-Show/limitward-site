@@ -77,3 +77,16 @@ ul.plain { padding-left: 20px; } ul.plain li { margin-bottom: 6px; }
 .poll-buttons button:hover:not(:disabled) { border-color: var(--brand); }
 .poll-buttons button:disabled { opacity: .6; cursor: default; }
 .poll .msg { margin-top: 8px; font-size: 14px; color: var(--muted); min-height: 20px; }
+
+.tablewrap { overflow-x: auto; margin: 12px 0 18px; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 15px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; background: var(--surface); }
+.crumbs { font-size: 14px; color: var(--muted); margin: 20px 0 0; }
+.crumbs a { color: var(--muted); }
+article h2 { margin-top: 32px; }
+article ol.plain, article ul.plain { margin: 0 0 14px; }
+.faq { margin: 36px 0; }
+.faq h3 { margin: 18px 0 6px; font-size: 17px; }
+.ctarow { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
+.btn { margin-right: 6px; }

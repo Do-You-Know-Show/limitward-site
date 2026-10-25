@@ -24,6 +24,11 @@
           { label: '$100K', start: 100000, maxLoss: 3000 },
           { label: '$150K', start: 150000, maxLoss: 4500 }
         ],
+        faq: [
+          { q: 'How does the Topstep Maximum Loss Limit work?', a: 'In the Trading Combine the Maximum Loss Limit starts $2,000, $3,000 or $4,500 below the account size (for the $50K, $100K and $150K accounts). It rises as your end-of-day balance grows and never moves down.' },
+          { q: 'Do open (unrealized) losses count toward the Topstep limit?', a: 'Yes. According to Topstep, both realized and unrealized profit and loss count toward the Maximum Loss Limit, so an open loss that reaches the limit can trigger liquidation.' },
+          { q: 'When does the Topstep Maximum Loss Limit stop trailing?', a: 'In the Trading Combine it locks permanently once it reaches your starting balance.' }
+        ],
         rule: { model: 'trailing_eod' }
       },
       {
@@ -44,6 +49,11 @@
           { label: '$50K', start: 50000 },
           { label: '$100K', start: 100000 },
           { label: '$200K', start: 200000 }
+        ],
+        faq: [
+          { q: 'What is the FTMO Max Daily Loss on the 2-Step Challenge?', a: 'It is 5% of the initial simulated capital. The limit is recalculated daily at 00:00 CE(S)T, starting from your account balance at that time.' },
+          { q: 'Is the FTMO daily loss measured on balance or equity?', a: 'Equity. FTMO measures it as balance plus open positions profit and loss, plus or minus swaps, minus commissions.' },
+          { q: 'Is the FTMO Max Loss static or trailing?', a: 'On the 2-Step Challenge it is a static 10% of the initial simulated capital. It does not move up with profits. Other FTMO products use different numbers, so check the product you bought.' }
         ],
         dailyLossPct: 5,
         maxLossPct: 10,

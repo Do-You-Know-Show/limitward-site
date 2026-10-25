@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trailing drawdown explained: static, end-of-day and intraday</title>
+<meta name="description" content="How static, end-of-day trailing and intraday trailing drawdown limits work in prop-firm challenges, with worked examples from Topstep and FTMO.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://limitward.app/guides/trailing-drawdown-explained/">
+<meta name="theme-color" content="#0f6b5c">
+<meta property="og:site_name" content="Limitward">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trailing drawdown explained: static, end-of-day and intraday">
+<meta property="og:description" content="How static, end-of-day trailing and intraday trailing drawdown limits work in prop-firm challenges, with worked examples from Topstep and FTMO.">
+<meta property="og:url" content="https://limitward.app/guides/trailing-drawdown-explained/">
+<meta property="og:image" content="https://limitward.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trailing drawdown explained: static, end-of-day and intraday">
+<meta name="twitter:description" content="How static, end-of-day trailing and intraday trailing drawdown limits work in prop-firm challenges, with worked examples from Topstep and FTMO.">
+<meta name="twitter:image" content="https://limitward.app/og.png">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Trailing drawdown explained","description":"How static, end-of-day trailing and intraday trailing drawdown limits work in prop-firm challenges, with worked examples from Topstep and FTMO.","datePublished":"2026-10-25","dateModified":"2026-10-25","author":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"},"mainEntityOfPage":"https://limitward.app/guides/trailing-drawdown-explained/","image":"https://limitward.app/og.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://limitward.app/guides/"},{"@type":"ListItem","position":3,"name":"Trailing drawdown explained","item":"https://limitward.app/guides/trailing-drawdown-explained/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between static and trailing drawdown?","acceptedAnswer":{"@type":"Answer","text":"A static drawdown floor is fixed at the starting balance minus the maximum loss and never moves. A trailing drawdown floor rises as your balance or equity reaches new highs, and it does not come back down."}},{"@type":"Question","name":"Do open profits move a trailing drawdown?","acceptedAnswer":{"@type":"Answer","text":"It depends on the firm. Topstep updates its Combine floor from the end-of-day balance but counts open profit and loss toward the limit in real time. Intraday trailing limits follow equity during the day. Check the rules for the exact product you bought."}},{"@type":"Question","name":"Where can I check the exact rules?","acceptedAnswer":{"@type":"Answer","text":"On the firm's own help pages. Our firm pages link to the source we checked and show the date, for example the Topstep and FTMO pages."}}]}</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="../../">Limitward</a>
+<nav class="main" aria-label="Main">
+<a href="../../position-size/">Position size</a>
+<a href="../../prop-firm-drawdown/">Prop-firm drawdown</a>
+<a href="../../firms/">Firm rules</a>
+<a href="../../guides/" aria-current="page">Guides</a>
+</nav></div></header>
+<main class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Home</a> › <a href="../">Guides</a> › <span>Trailing drawdown explained</span></nav>
+<article>
+<h1>Trailing drawdown explained</h1>
+<p class="lede">A drawdown limit is a floor under your account. If your equity touches it, the challenge or funded account is over. The confusing part is that the floor can behave in three different ways.</p>
+<h2>The three common types</h2>
+<ul class="plain">
+<li><strong>Static:</strong> the floor is fixed at the starting balance minus the maximum loss. It never moves, even if you make money. FTMO's 2-Step Challenge uses a static maximum loss of 10% of initial capital.</li>
+<li><strong>End-of-day (EOD) trailing:</strong> the floor follows your highest end-of-day balance upward and never moves down. Topstep's Maximum Loss Limit in the Trading Combine works this way.</li>
+<li><strong>Intraday trailing:</strong> the floor follows your highest equity during the day, including open profit. Some firms and products use this. It is the least forgiving type, because a profit you did not close can still raise your floor.</li>
+</ul>
+<h2>Worked example: Topstep $50K Combine</h2>
+<p>Per Topstep, the Maximum Loss Limit starts $2,000 below the account size on a $50K Combine, trails your end-of-day balance upward, never moves down, and locks once it reaches your starting balance. Both realized and unrealized profit and loss count toward the limit in real time. The floor only updates at the end of the day.</p>
+<div class="tablewrap"><table><thead><tr><th>Highest end-of-day balance</th><th>Floor</th><th>State</th></tr></thead><tbody><tr><td>$50,000</td><td>$48,000</td><td>Trailing</td></tr><tr><td>$51,000</td><td>$49,000</td><td>Trailing</td></tr><tr><td>$52,000</td><td>$50,000</td><td>Locked at the starting balance</td></tr><tr><td>$53,000</td><td>$50,000</td><td>Locked at the starting balance</td></tr></tbody></table></div>
+<p>Try your own numbers in the <a href="../../firms/topstep/">Topstep drawdown calculator</a>.</p>
+<h2>Worked example: FTMO $100K 2-Step</h2>
+<p>FTMO's Max Loss is a static 10% of initial capital, so on a $100,000 account the floor is $90,000 and it does not move. Its Max Daily Loss is 5% of initial capital, measured on equity, recalculated at 00:00 CE(S)T from your balance at that time.</p>
+<p>Suppose your balance at the start of the day is $102,000. The daily floor is $97,000. If your equity is $100,500, you have $3,500 of room before the daily limit, and that is the limit that matters today because it is closer than the $90,000 max-loss floor. Run it in the <a href="../../firms/ftmo/">FTMO drawdown calculator</a>.</p>
+<h2>Which limit is binding?</h2>
+<p>When a firm has both a daily limit and a maximum limit, the closer floor is the one that can end your day. Always measure your room against the nearer one.</p>
+<h2>What this means for your position size</h2>
+<p>Your real risk budget is not the account size. It is the room between your equity and the nearest floor. A planning habit that helps: use only part of that room, and make sure a short run of full stop-outs still leaves you inside it. The <a href="../../prop-firm-drawdown/">prop-firm drawdown calculator</a> does this, and the <a href="../position-size-formula/">position size guide</a> turns the resulting dollar risk into contracts, lots or shares.</p>
+<h2>Common mistakes</h2>
+<ul class="plain">
+<li>Confusing balance with equity. Open profit and loss count toward most limits.</li>
+<li>Assuming every product from one firm has the same rules. Different products use different percentages and trailing styles.</li>
+<li>Forgetting fees and slippage, which make a stop-out cost more than the planned risk.</li>
+<li>Relying on a summary like this one instead of the firm's current rules.</li>
+</ul>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<h3>What is the difference between static and trailing drawdown?</h3>
+<p>A static drawdown floor is fixed at the starting balance minus the maximum loss and never moves. A trailing drawdown floor rises as your balance or equity reaches new highs, and it does not come back down.</p>
+<h3>Do open profits move a trailing drawdown?</h3>
+<p>It depends on the firm. Topstep updates its Combine floor from the end-of-day balance but counts open profit and loss toward the limit in real time. Intraday trailing limits follow equity during the day. Check the rules for the exact product you bought.</p>
+<h3>Where can I check the exact rules?</h3>
+<p>On the firm's own help pages. Our firm pages link to the source we checked and show the date, for example the Topstep and FTMO pages.</p>
+</section>
+<h2>Related guides</h2>
+<ul class="plain"><li><a href="../daily-loss-limit/">How to set a daily loss limit</a></li><li><a href="../position-size-formula/">How to calculate position size</a></li></ul>
+<p class="ctarow"><a class="btn" href="../../position-size/">Position size calculator</a> <a class="btn" href="../../prop-firm-drawdown/">Prop-firm drawdown calculator</a></p>
+<p class="hint">Last updated 2026-10-25. Educational information only, not investment advice.</p>
+</article>
+<section class="waitlist" aria-labelledby="wl-h">
+<h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
+<p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
+<form class="wl" novalidate>
+<input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
+<button type="submit">Join the waitlist</button>
+<div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../../privacy/">privacy policy</a>.</span></label>
+</form>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
+</main>
+<footer class="site"><div class="wrap">
+<p>Limitward calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
+<p><a href="../../guides/">Guides</a> · <a href="../../privacy/">Privacy policy</a></p>
+</div></footer>
+<script src="../../js/config.js"></script>
+<script src="../../js/calc.js"></script>
+<script src="../../js/presets.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

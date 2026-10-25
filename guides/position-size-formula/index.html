@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to calculate position size, with worked examples</title>
+<meta name="description" content="The position size formula for stocks, futures, forex and crypto, with fees included and worked examples you can check by hand.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://limitward.app/guides/position-size-formula/">
+<meta name="theme-color" content="#0f6b5c">
+<meta property="og:site_name" content="Limitward">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to calculate position size, with worked examples">
+<meta property="og:description" content="The position size formula for stocks, futures, forex and crypto, with fees included and worked examples you can check by hand.">
+<meta property="og:url" content="https://limitward.app/guides/position-size-formula/">
+<meta property="og:image" content="https://limitward.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to calculate position size, with worked examples">
+<meta name="twitter:description" content="The position size formula for stocks, futures, forex and crypto, with fees included and worked examples you can check by hand.">
+<meta name="twitter:image" content="https://limitward.app/og.png">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to calculate position size","description":"The position size formula for stocks, futures, forex and crypto, with fees included and worked examples you can check by hand.","datePublished":"2026-10-25","dateModified":"2026-10-25","author":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"},"mainEntityOfPage":"https://limitward.app/guides/position-size-formula/","image":"https://limitward.app/og.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://limitward.app/guides/"},{"@type":"ListItem","position":3,"name":"How to calculate position size","item":"https://limitward.app/guides/position-size-formula/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the position size formula?","acceptedAnswer":{"@type":"Answer","text":"Position size equals the dollars you are willing to risk divided by the dollars lost per unit if the stop is hit, rounded down."}},{"@type":"Question","name":"How much of my account should I risk per trade?","acceptedAnswer":{"@type":"Answer","text":"There is no single correct number. Many traders choose a small fixed percentage of the account, and prop-firm traders also need to stay inside the firm's drawdown limits. Limitward does not recommend a figure; it calculates the size for whatever you choose."}},{"@type":"Question","name":"Should I include fees in position sizing?","acceptedAnswer":{"@type":"Answer","text":"Yes. Commissions and slippage are part of what a stop-out costs, and ignoring them can put your real loss above your planned risk."}}]}</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="../../">Limitward</a>
+<nav class="main" aria-label="Main">
+<a href="../../position-size/">Position size</a>
+<a href="../../prop-firm-drawdown/">Prop-firm drawdown</a>
+<a href="../../firms/">Firm rules</a>
+<a href="../../guides/" aria-current="page">Guides</a>
+</nav></div></header>
+<main class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Home</a> › <a href="../">Guides</a> › <span>How to calculate position size</span></nav>
+<article>
+<h1>How to calculate position size</h1>
+<p class="lede">Position sizing starts from one decision: how much you are willing to lose if the trade hits your stop. Everything else is arithmetic.</p>
+<h2>The one idea</h2>
+<p>Size = dollars you are willing to risk ÷ dollars lost per unit if the stop is hit. Round down, never up, so the result cannot exceed your limit.</p>
+<h2>Stocks</h2>
+<p>Risk per share is the distance between entry and stop, plus any per-share costs. On a $25,000 account risking 1% ($250), with entry 50 and stop 48, the risk per share is $2, so the size is 125 shares. If you also pay a $2 round-trip commission, the budget for price risk is $248 and the size drops to 124 shares. Small costs matter at small sizes.</p>
+<h2>Futures</h2>
+<p>Tick value = contract multiplier × tick size. Risk per contract = stop distance in ticks × tick value + fees. For ES, a 4-point stop is 16 ticks of $12.50, or $200 per contract, so a $500 budget buys 2 contracts. With a $4.50 round-trip fee and a $400 budget, the cost per contract is $204.50 and the size is 1 contract. Without the fee the same trade would look like 2 contracts. See the <a href="../futures-tick-values/">futures tick values guide</a>.</p>
+<h2>Forex</h2>
+<p>Pip value per unit = pip size × the rate that converts the quote currency into your account currency. On EURUSD with a US dollar account a standard lot is worth $10 per pip, so a 20-pip stop with a $200 budget gives 1.00 standard lot.</p>
+<h2>Crypto</h2>
+<p>Quantity = risk ÷ (stop distance + fees per unit). Entry 60,000, stop 58,800 and a $300 budget gives 0.25 BTC, a position worth $15,000. On a leveraged perpetual, margin is the position value divided by leverage, and your stop should sit well inside the liquidation price.</p>
+<h2>Do it with the calculator</h2>
+<p>The <a href="../../position-size/">position size calculator</a> handles stocks, futures, forex, crypto, long options and credit spreads, and every example on this page is produced by the same code.</p>
+<h2>Why fees and rounding matter</h2>
+<p>Costs are part of the stop-out, so include them. And because you cannot trade a fraction of a contract, always round down. Rounding to the nearest whole number can quietly push your real risk above your limit.</p>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<h3>What is the position size formula?</h3>
+<p>Position size equals the dollars you are willing to risk divided by the dollars lost per unit if the stop is hit, rounded down.</p>
+<h3>How much of my account should I risk per trade?</h3>
+<p>There is no single correct number. Many traders choose a small fixed percentage of the account, and prop-firm traders also need to stay inside the firm's drawdown limits. Limitward does not recommend a figure; it calculates the size for whatever you choose.</p>
+<h3>Should I include fees in position sizing?</h3>
+<p>Yes. Commissions and slippage are part of what a stop-out costs, and ignoring them can put your real loss above your planned risk.</p>
+</section>
+<h2>Related guides</h2>
+<ul class="plain"><li><a href="../futures-tick-values/">Futures tick values</a></li><li><a href="../risk-reward-break-even-win-rate/">Risk-reward and break-even win rate</a></li></ul>
+<p class="ctarow"><a class="btn" href="../../position-size/">Position size calculator</a> <a class="btn" href="../../prop-firm-drawdown/">Prop-firm drawdown calculator</a></p>
+<p class="hint">Last updated 2026-10-25. Educational information only, not investment advice.</p>
+</article>
+<section class="waitlist" aria-labelledby="wl-h">
+<h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
+<p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
+<form class="wl" novalidate>
+<input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
+<button type="submit">Join the waitlist</button>
+<div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../../privacy/">privacy policy</a>.</span></label>
+</form>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
+</main>
+<footer class="site"><div class="wrap">
+<p>Limitward calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
+<p><a href="../../guides/">Guides</a> · <a href="../../privacy/">Privacy policy</a></p>
+</div></footer>
+<script src="../../js/config.js"></script>
+<script src="../../js/calc.js"></script>
+<script src="../../js/presets.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

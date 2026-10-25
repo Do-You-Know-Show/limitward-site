@@ -6,20 +6,41 @@
 <title>Prop-firm drawdown calculator: trailing, static and daily loss</title>
 <meta name="description" content="Free prop-firm drawdown calculator for static, end-of-day trailing and intraday trailing loss limits, plus daily loss. Shows your buffer and a safe per-trade risk.">
 <meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://limitward.app/prop-firm-drawdown/">
+<meta name="theme-color" content="#0f6b5c">
+<meta property="og:site_name" content="Limitward">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prop-firm drawdown calculator: trailing, static and daily loss">
+<meta property="og:description" content="Free prop-firm drawdown calculator for static, end-of-day trailing and intraday trailing loss limits, plus daily loss. Shows your buffer and a safe per-trade risk.">
+<meta property="og:url" content="https://limitward.app/prop-firm-drawdown/">
+<meta property="og:image" content="https://limitward.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prop-firm drawdown calculator: trailing, static and daily loss">
+<meta name="twitter:description" content="Free prop-firm drawdown calculator for static, end-of-day trailing and intraday trailing loss limits, plus daily loss. Shows your buffer and a safe per-trade risk.">
+<meta name="twitter:image" content="https://limitward.app/og.png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Prop-firm drawdown calculator","url":"https://limitward.app/prop-firm-drawdown/","description":"Drawdown calculator for static, trailing and daily-loss prop-firm limits.","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Prop-firm drawdown calculator","item":"https://limitward.app/prop-firm-drawdown/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does the prop-firm drawdown calculator show?","acceptedAnswer":{"@type":"Answer","text":"Your loss-limit floor, how much room you have before it, which limit is binding (maximum loss or daily loss), and a per-trade risk that keeps a short run of stop-outs inside that room."}},{"@type":"Question","name":"Which firms are included?","acceptedAnswer":{"@type":"Answer","text":"Topstep (Trading Combine) and FTMO (2-Step Challenge), each checked against the firm's own page, plus a custom option for other rules."}},{"@type":"Question","name":"How is safe risk per trade calculated?","acceptedAnswer":{"@type":"Answer","text":"By default it uses half of your remaining room, split across two full stop-outs in a row. You can change both numbers. It is a planning aid, not a recommendation."}},{"@type":"Question","name":"Are the firm rules always current?","acceptedAnswer":{"@type":"Answer","text":"Firms change their rules. Each firm page shows the date we last checked it against the firm's own page, and you should always confirm with your firm."}}]}</script>
 </head>
 <body>
 <header class="site"><div class="wrap">
-<a class="logo" href="../index.html">Limitward</a>
+<a class="logo" href="../">Limitward</a>
 <nav class="main" aria-label="Main">
-<a href="../position-size/index.html">Position size</a>
-<a href="../prop-firm-drawdown/index.html" aria-current="page">Prop-firm drawdown</a>
-<a href="../firms/index.html">Firm rules</a>
+<a href="../position-size/">Position size</a>
+<a href="../prop-firm-drawdown/" aria-current="page">Prop-firm drawdown</a>
+<a href="../firms/">Firm rules</a>
+<a href="../guides/">Guides</a>
 </nav></div></header>
 <main class="wrap">
 <h1>Prop-firm drawdown calculator</h1>
 <p class="lede">See how much room you have before your firm's loss limit, and a per-trade risk that keeps a run of stop-outs inside it. Pick a firm or enter your own rules.</p>
 <section class="tool" id="drawdown" data-firm="">
+<noscript><p class="note">This calculator needs JavaScript to run. Nothing you type is sent anywhere.</p></noscript>
 <div class="row">
 <div><label for="firm">Firm</label><select id="firm"></select></div>
 <div><label for="acct">Account size</label><select id="acct"></select></div>
@@ -65,6 +86,18 @@
 <h2>How "safe risk per trade" is worked out</h2>
 <p>It takes the room between your equity and the binding floor (the closer of the max-loss and daily-loss limits), uses only the share you choose (50% by default), and splits it across the number of full stop-outs you want to survive in a row (2 by default). This is a conservative planning aid, not a prediction or a recommendation.</p>
 <div class="note">Firm presets show the date they were last checked against the firm's own pages. If your firm or product is not listed, choose <strong>Custom rules</strong>.</div>
+<p>New to these limits? Read <a href="../guides/trailing-drawdown-explained/">trailing drawdown explained</a> and the guide to <a href="../guides/daily-loss-limit/">setting a daily loss limit</a>.</p>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<h3>What does the prop-firm drawdown calculator show?</h3>
+<p>Your loss-limit floor, how much room you have before it, which limit is binding (maximum loss or daily loss), and a per-trade risk that keeps a short run of stop-outs inside that room.</p>
+<h3>Which firms are included?</h3>
+<p>Topstep (Trading Combine) and FTMO (2-Step Challenge), each checked against the firm's own page, plus a custom option for other rules.</p>
+<h3>How is safe risk per trade calculated?</h3>
+<p>By default it uses half of your remaining room, split across two full stop-outs in a row. You can change both numbers. It is a planning aid, not a recommendation.</p>
+<h3>Are the firm rules always current?</h3>
+<p>Firms change their rules. Each firm page shows the date we last checked it against the firm's own page, and you should always confirm with your firm.</p>
+</section>
 <section class="waitlist" aria-labelledby="wl-h">
 <h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
 <p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
@@ -72,14 +105,14 @@
 <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
 <button type="submit">Join the waitlist</button>
 <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../privacy/index.html">privacy policy</a>.</span></label>
+<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../privacy/">privacy policy</a>.</span></label>
 </form>
 <div class="msg" role="status" aria-live="polite"></div>
 </section>
 </main>
 <footer class="site"><div class="wrap">
 <p>Limitward calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
-<p><a href="../privacy/index.html">Privacy policy</a></p>
+<p><a href="../guides/">Guides</a> · <a href="../privacy/">Privacy policy</a></p>
 </div></footer>
 <script src="../js/config.js"></script>
 <script src="../js/calc.js"></script>

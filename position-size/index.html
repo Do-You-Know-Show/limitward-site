@@ -6,20 +6,41 @@
 <title>Position size calculator: stocks, futures, forex, crypto, options</title>
 <meta name="description" content="Free position size calculator. Enter your account risk and stop distance and get the exact size for stocks, futures, forex, crypto and options, with fees included.">
 <meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://limitward.app/position-size/">
+<meta name="theme-color" content="#0f6b5c">
+<meta property="og:site_name" content="Limitward">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Position size calculator: stocks, futures, forex, crypto, options">
+<meta property="og:description" content="Free position size calculator. Enter your account risk and stop distance and get the exact size for stocks, futures, forex, crypto and options, with fees included.">
+<meta property="og:url" content="https://limitward.app/position-size/">
+<meta property="og:image" content="https://limitward.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Position size calculator: stocks, futures, forex, crypto, options">
+<meta name="twitter:description" content="Free position size calculator. Enter your account risk and stop distance and get the exact size for stocks, futures, forex, crypto and options, with fees included.">
+<meta name="twitter:image" content="https://limitward.app/og.png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Position size calculator","url":"https://limitward.app/position-size/","description":"Free position size calculator for stocks, futures, forex, crypto and options.","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Position size calculator","item":"https://limitward.app/position-size/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I calculate position size?","acceptedAnswer":{"@type":"Answer","text":"Divide the dollars you are willing to risk by the dollars you lose per unit if your stop is hit, and round down. For futures, the dollars per contract come from the stop distance in ticks times the tick value, plus fees."}},{"@type":"Question","name":"Does the calculator include fees?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can enter commissions, per-share costs, round-trip futures fees or percentage fees on crypto. They are added to the cost of a stop-out before the size is rounded down."}},{"@type":"Question","name":"Is the information I type sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The calculations run in your browser and the numbers you enter are not sent to any server."}},{"@type":"Question","name":"Which markets does it cover?","acceptedAnswer":{"@type":"Answer","text":"Stocks, futures, forex, crypto, long options and defined-risk credit spreads."}}]}</script>
 </head>
 <body>
 <header class="site"><div class="wrap">
-<a class="logo" href="../index.html">Limitward</a>
+<a class="logo" href="../">Limitward</a>
 <nav class="main" aria-label="Main">
-<a href="../position-size/index.html" aria-current="page">Position size</a>
-<a href="../prop-firm-drawdown/index.html">Prop-firm drawdown</a>
-<a href="../firms/index.html">Firm rules</a>
+<a href="../position-size/" aria-current="page">Position size</a>
+<a href="../prop-firm-drawdown/">Prop-firm drawdown</a>
+<a href="../firms/">Firm rules</a>
+<a href="../guides/">Guides</a>
 </nav></div></header>
 <main class="wrap">
 <h1>Position size calculator</h1>
 <p class="lede">Decide how much you are willing to lose first. This works out the size that keeps a stop-out inside that amount, rounded down, with fees included.</p>
 <section class="tool" id="position-size">
+<noscript><p class="note">This calculator needs JavaScript to run. Nothing you type is sent anywhere.</p></noscript>
 <div class="tabs" role="group" aria-label="Asset type"></div>
 <div class="row">
 <div><label for="riskMode">Risk is set as</label><select id="riskMode"><option value="pct">% of account</option><option value="usd">Dollar amount</option></select></div>
@@ -49,7 +70,18 @@
 <li><strong>Crypto:</strong> quantity = risk ÷ (|entry − stop| + fees per unit). Margin = position value ÷ leverage.</li>
 <li><strong>Options:</strong> long options risk the premium × 100 per contract. A credit spread risks (width − credit) × 100 per contract.</li>
 </ul>
-<p>Size is always rounded <em>down</em> so the result never exceeds your risk limit. Exchange specifications such as tick values should be confirmed against your broker or the exchange.</p>
+<p>Size is always rounded <em>down</em> so the result never exceeds your risk limit. Exchange specifications such as tick values should be confirmed against your broker or the exchange. For worked examples see the <a href="../guides/position-size-formula/">position size guide</a> and the <a href="../guides/futures-tick-values/">futures tick values guide</a>.</p>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<h3>How do I calculate position size?</h3>
+<p>Divide the dollars you are willing to risk by the dollars you lose per unit if your stop is hit, and round down. For futures, the dollars per contract come from the stop distance in ticks times the tick value, plus fees.</p>
+<h3>Does the calculator include fees?</h3>
+<p>Yes. You can enter commissions, per-share costs, round-trip futures fees or percentage fees on crypto. They are added to the cost of a stop-out before the size is rounded down.</p>
+<h3>Is the information I type sent anywhere?</h3>
+<p>No. The calculations run in your browser and the numbers you enter are not sent to any server.</p>
+<h3>Which markets does it cover?</h3>
+<p>Stocks, futures, forex, crypto, long options and defined-risk credit spreads.</p>
+</section>
 <section class="waitlist" aria-labelledby="wl-h">
 <h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
 <p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
@@ -57,14 +89,14 @@
 <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
 <button type="submit">Join the waitlist</button>
 <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../privacy/index.html">privacy policy</a>.</span></label>
+<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../privacy/">privacy policy</a>.</span></label>
 </form>
 <div class="msg" role="status" aria-live="polite"></div>
 </section>
 </main>
 <footer class="site"><div class="wrap">
 <p>Limitward calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
-<p><a href="../privacy/index.html">Privacy policy</a></p>
+<p><a href="../guides/">Guides</a> · <a href="../privacy/">Privacy policy</a></p>
 </div></footer>
 <script src="../js/config.js"></script>
 <script src="../js/calc.js"></script>
