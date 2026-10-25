@@ -69,3 +69,11 @@ ul.plain { padding-left: 20px; } ul.plain li { margin-bottom: 6px; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .waitlist .consent { display: flex; gap: 8px; align-items: flex-start; flex-basis: 100%; font-size: 13px; color: var(--muted); margin: 0; }
 .waitlist .consent input { width: 20px; min-height: 20px; margin-top: 2px; flex: none; }
+
+.poll { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin: 28px 0; }
+.poll[hidden] { display: none; }
+.poll-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+.poll-buttons button { min-width: 96px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+.poll-buttons button:hover:not(:disabled) { border-color: var(--brand); }
+.poll-buttons button:disabled { opacity: .6; cursor: default; }
+.poll .msg { margin-top: 8px; font-size: 14px; color: var(--muted); min-height: 20px; }

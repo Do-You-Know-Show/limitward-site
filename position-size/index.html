@@ -31,6 +31,16 @@
 <div class="error" id="err" role="alert"></div>
 <div id="out" role="status" aria-live="polite"></div>
 </section>
+<section class="poll" data-question="pretrade_check" hidden aria-labelledby="poll-h">
+<h2 id="poll-h" style="margin-top:0">One quick question</h2>
+<p>Would you use an app that checks each trade against your own risk rules <em>before</em> you place it?</p>
+<div class="poll-buttons" role="group" aria-label="Your answer">
+<button type="button" data-answer="yes">Yes</button>
+<button type="button" data-answer="maybe">Maybe</button>
+<button type="button" data-answer="no">No</button>
+</div>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
 <h2>How the maths works</h2>
 <ul class="plain">
 <li><strong>Stocks:</strong> size = (risk − commissions) ÷ (|entry − stop| + per-share costs), rounded down.</li>

@@ -233,9 +233,43 @@
     });
   }
 
+  /* ---------------- One-click poll ---------------- */
+  function initPoll() {
+    var box = $('.poll');
+    var url = (window.SITE_CONFIG || {}).POLL_ENDPOINT;
+    if (!box || !url) return; // stays hidden unless the API endpoint is configured
+    var question = box.getAttribute('data-question');
+    var key = 'lw_poll_' + question;
+    var msg = $('.msg', box), btns = $('.poll-buttons', box);
+    var prior = null;
+    try { prior = localStorage.getItem(key); } catch (e) { prior = null; }
+    box.hidden = false;
+    if (prior) { btns.style.display = 'none'; msg.textContent = 'Thanks, you answered "' + prior + '".'; return; }
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function (b) {
+      b.addEventListener('click', function () {
+        var answer = b.getAttribute('data-answer');
+        Array.prototype.forEach.call(btns.querySelectorAll('button'), function (x) { x.disabled = true; });
+        msg.textContent = 'Sending…';
+        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: question, answer: answer, page: location.pathname }) })
+          .then(function (r) {
+            if (r.status === 429) { msg.textContent = 'Too many answers from this connection. Thank you!'; return; }
+            if (!r.ok) throw new Error();
+            try { localStorage.setItem(key, answer); } catch (e) { /* ignore */ }
+            btns.style.display = 'none';
+            msg.textContent = 'Thanks, that helps.';
+          })
+          .catch(function () {
+            msg.textContent = 'Could not send. Please try again.';
+            Array.prototype.forEach.call(btns.querySelectorAll('button'), function (x) { x.disabled = false; });
+          });
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var ps = $('#position-size'); if (ps) initPositionSize(ps);
     var dd = $('#drawdown'); if (dd) initDrawdown(dd);
     initWaitlist();
+    initPoll();
   });
 })();
