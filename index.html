@@ -43,8 +43,24 @@
 <span class="badge">Free · No sign-up · Nothing leaves your browser</span>
 <h1>Know how much you can lose before you trade</h1>
 <p class="lede">Free calculators for position size and prop-firm loss limits. Enter your account and your stop, and see the exact size and dollars at risk, so a stop-out stays inside your rules.</p>
-<div class="ctarow"><a class="btn" href="position-size/">Calculate position size</a><a class="btn alt" href="prop-firm-drawdown/">Check my drawdown limit</a></div>
+<div class="ctarow"><a class="btn" href="#position-size">Try the calculator</a><a class="btn alt" href="prop-firm-drawdown/">Check my drawdown limit</a></div>
 </section>
+<h2 class="tryh">Try it now: position size</h2>
+<section class="tool" id="position-size">
+<noscript><p class="note">This calculator needs JavaScript to run. Nothing you type is sent anywhere.</p></noscript>
+<div class="tabs" role="group" aria-label="Asset type"></div>
+<div class="row">
+<div><label for="riskMode">Risk is set as</label><select id="riskMode"><option value="pct">% of account</option><option value="usd">Dollar amount</option></select></div>
+<div id="acctWrap"><label for="equity">Account size ($)</label><input id="equity" type="number" inputmode="decimal" step="any"></div>
+<div><label for="riskVal" id="riskLabel">Risk per trade (% of account)</label><input id="riskVal" type="number" inputmode="decimal" step="any" value="1"></div>
+</div>
+<div id="fields"></div>
+<div class="btnrow"><button id="go" type="button">Calculate size</button><button id="share" type="button" class="ghost">Copy link</button><button id="clear" type="button" class="ghost">Clear saved numbers</button></div>
+<div class="toolmsg hint" role="status" aria-live="polite"></div>
+<div class="error" id="err" role="alert"></div>
+<div id="out" role="status" aria-live="polite"></div>
+</section>
+<p class="hint">Need a prop-firm limit instead? Use the <a href="prop-firm-drawdown/">drawdown calculator</a>. Your numbers stay in your browser.</p>
 <section class="strip" aria-label="Highlights">
 <div><strong>5 markets</strong><span>Stocks, futures, forex, crypto, options</span></div>
 <div><strong>4 firm rule sets</strong><span>Checked against each firm's own page</span></div>
@@ -65,9 +81,16 @@
 <li><strong>Trade inside your plan.</strong> Copy or print a daily plan, or share a link to your setup.</li>
 </ol>
 <div class="example"><h3>A quick example</h3><p>A $50,000 account risking 1% is $500. If your stop is $2.50 away per share, the size is <strong>200 shares</strong> ($500 ÷ $2.50). The calculators do the same for futures ticks, forex pips and fees.</p></div>
-<h2>Supported prop-firm rules</h2>
-<div class="chips"><a class="chip" href="firms/topstep/">Topstep Combine</a><a class="chip" href="firms/topstep-xfa/">Topstep Express Funded</a><a class="chip" href="firms/ftmo/">FTMO 2-Step</a><a class="chip" href="firms/ftmo-1step/">FTMO 1-Step</a></div>
-<p class="hint">Each rule set shows the date it was last checked against the firm's official page. <a href="about/">How we keep it accurate</a>.</p>
+<h2>Prop-firm rules we track</h2>
+<div class="tablewrap"><table><thead><tr><th>Firm rule set</th><th>Product</th><th>Last checked</th></tr></thead><tbody><tr><td><a href="firms/topstep/">Topstep Combine</a></td><td>Trading Combine (futures)</td><td>2026-10-20</td></tr><tr><td><a href="firms/topstep-xfa/">Topstep Express Funded</a></td><td>Express Funded Account (futures)</td><td>2026-10-20</td></tr><tr><td><a href="firms/ftmo/">FTMO 2-Step</a></td><td>2-Step Challenge (forex / CFD)</td><td>2026-10-20</td></tr><tr><td><a href="firms/ftmo-1step/">FTMO 1-Step</a></td><td>1-Step Challenge (forex / CFD)</td><td>2026-10-26</td></tr></tbody></table></div>
+<p class="hint">Read from each firm's own published page, with the check date shown. <a href="about/">How we keep it accurate</a>.</p>
+<h2>How we earn your trust</h2>
+<div class="grid trust">
+<div class="card"><h3>Open maths</h3><p>Every formula is written out on the page, and the guides use the same tested code as the calculators.</p></div>
+<div class="card"><h3>Sourced rules</h3><p>Firm limits come from official pages and carry a check date. Spot a mistake? Tell us and we fix it.</p></div>
+<div class="card"><h3>No ads, no tracking</h3><p>No cookies, no analytics, no affiliate links, and nothing you type leaves your device.</p></div>
+<div class="card"><h3>A real company</h3><p>Built by Sarang AI Technologies Inc., Alberta, Canada. <a href="about/">About us</a>.</p></div>
+</div>
 <h2>Popular guides</h2>
 <div class="grid"><div class="card"><a class="cardlink" href="guides/trailing-drawdown-explained/"><h3>Trailing drawdown explained</h3><p>How static, end-of-day trailing and intraday trailing drawdown limits work in prop-firm challenges, with worked examples from Topstep and FTMO.</p></a></div><div class="card"><a class="cardlink" href="guides/position-size-formula/"><h3>How to calculate position size</h3><p>The position size formula for stocks, futures, forex and crypto, with fees included and worked examples you can check by hand.</p></a></div><div class="card"><a class="cardlink" href="guides/futures-tick-values/"><h3>Futures tick values</h3><p>Tick size and tick value for ES, MES, NQ, MNQ, CL and GC futures, and how to turn a stop in points into dollars per contract.</p></a></div></div>
 <p><a href="guides/">All guides</a></p>
