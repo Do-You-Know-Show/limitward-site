@@ -105,3 +105,32 @@ button.ghost:hover { border-color: var(--brand); }
   body.print-plan #plan { position: absolute; left: 0; top: 0; width: 100%; border: 0; }
   body.print-plan .noprint { display: none; }
 }
+
+/* website polish */
+header.site { position: sticky; top: 0; z-index: 10; }
+nav.main { align-items: center; }
+nav.main a.navcta { background: var(--brand); color: var(--brand-ink); padding: 6px 14px; border-radius: 8px; font-weight: 600; }
+nav.main a.navcta:hover { color: var(--brand-ink); opacity: .9; }
+.hero { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 40px 32px; margin-top: 24px; }
+.hero h1 { margin-top: 14px; font-size: clamp(30px, 6vw, 46px); }
+.hero .ctarow { margin-bottom: 0; }
+.btn.alt { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn.alt:hover { border-color: var(--brand); }
+.strip { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin: 16px 0 0; }
+.strip div { padding: 14px 16px; border-left: 3px solid var(--brand); background: var(--surface); border-radius: 0 10px 10px 0; }
+.strip strong { display: block; } .strip span { font-size: 13px; color: var(--muted); }
+.more { color: var(--brand); font-weight: 600; font-size: 14px; }
+.steps { counter-reset: s; list-style: none; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 18px 18px 56px; position: relative; }
+.steps li::before { content: counter(s); position: absolute; left: 16px; top: 16px; width: 28px; height: 28px; border-radius: 50%; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; font-weight: 700; }
+.example { background: var(--brand-tint); border-radius: var(--radius); padding: 18px 20px; margin-top: 16px; }
+.example p { margin: 0; }
+.chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; text-decoration: none; color: var(--ink); font-size: 15px; }
+.chip:hover { border-color: var(--brand); }
+.footgrid { display: grid; gap: 24px; grid-template-columns: 2fr 1fr 1.3fr 1fr; margin-bottom: 20px; }
+.footgrid h4 { margin: 0 0 8px; color: var(--ink); font-size: 14px; }
+.footgrid a:not(.logo) { display: block; color: var(--muted); text-decoration: none; padding: 3px 0; font-size: 14px; }
+.footgrid a:hover { color: var(--brand); }
+.disclaimer { font-size: 12px; }
+@media (max-width: 720px) { .footgrid { grid-template-columns: 1fr 1fr; } .hero { padding: 28px 18px; } header.site { position: static; } }
