@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topstep Express Funded drawdown calculator and rules explained</title>
+<meta name="description" content="Free Topstep Express Funded drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://limitward.app/firms/topstep-xfa/">
+<meta name="theme-color" content="#0f6b5c">
+<meta property="og:site_name" content="Limitward">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Topstep Express Funded drawdown calculator and rules explained">
+<meta property="og:description" content="Free Topstep Express Funded drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<meta property="og:url" content="https://limitward.app/firms/topstep-xfa/">
+<meta property="og:image" content="https://limitward.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Topstep Express Funded drawdown calculator and rules explained">
+<meta name="twitter:description" content="Free Topstep Express Funded drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<meta name="twitter:image" content="https://limitward.app/og.png">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Topstep Express Funded drawdown calculator","url":"https://limitward.app/firms/topstep-xfa/","description":"Drawdown calculator for the Topstep Express Funded Account (futures).","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Firm rules","item":"https://limitward.app/firms/"},{"@type":"ListItem","position":3,"name":"Topstep Express Funded","item":"https://limitward.app/firms/topstep-xfa/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is the Topstep Express Funded limit different from the Combine?","acceptedAnswer":{"@type":"Answer","text":"The mechanics are the same end-of-day trailing limit, but the Express Funded Account balance starts at $0 and the limit starts below it. It locks at $0 once your balance reaches the starting limit amount, and also after your first payout."}},{"@type":"Question","name":"What happens if I breach the limit on an Express Funded Account?","acceptedAnswer":{"@type":"Answer","text":"According to Topstep, the account is permanently closed. A Back2Funded option may be available if you are eligible."}},{"@type":"Question","name":"Do unrealized losses count on the Express Funded Account?","acceptedAnswer":{"@type":"Answer","text":"Yes. Topstep says both realized and unrealized profit and loss count toward the Maximum Loss Limit."}}]}</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="../../">Limitward</a>
+<nav class="main" aria-label="Main">
+<a href="../../position-size/">Position size</a>
+<a href="../../prop-firm-drawdown/">Prop-firm drawdown</a>
+<a href="../../firms/" aria-current="page">Firm rules</a>
+<a href="../../risk-reward-calculator/">Risk-reward</a>
+<a href="../../guides/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+<h1>Topstep Express Funded drawdown calculator</h1>
+<p class="lede">Topstep Express Funded Account (futures): On the Express Funded Account the balance starts at $0 and the Maximum Loss Limit starts below it. It trails your end-of-day balance upward and locks at $0 once your balance reaches the starting limit amount, or after your first payout.</p>
+<section class="tool" id="drawdown" data-firm="topstep-xfa">
+<noscript><p class="note">This calculator needs JavaScript to run. Nothing you type is sent anywhere.</p></noscript>
+<div class="row">
+<div><label for="firm">Firm</label><select id="firm"></select></div>
+<div><label for="acct">Account size</label><select id="acct"></select></div>
+<div><label for="startBal">Starting balance ($)</label><input id="startBal" type="number" inputmode="decimal" step="any"></div>
+</div>
+<div id="customBox" style="display:none"><div class="row">
+<div><label for="model">Max-loss type</label><select id="model">
+<option value="static">Static (fixed floor)</option>
+<option value="trailing_eod">Trailing on end-of-day balance (locks at start)</option>
+<option value="trailing_eod_nolock">Trailing on end-of-day balance (no lock)</option>
+<option value="trailing_intraday">Trailing on intraday equity (locks at start)</option></select></div>
+<div><label for="maxLoss">Max loss ($)</label><input id="maxLoss" type="number" inputmode="decimal" step="any"></div>
+<div><label for="dailyLoss">Daily loss limit ($, optional)</label><input id="dailyLoss" type="number" inputmode="decimal" step="any"></div>
+</div></div>
+<div class="row">
+<div><label for="equity">Current equity ($)</label><input id="equity" type="number" inputmode="decimal" step="any"><div class="hint">Balance plus open profit or loss.</div></div>
+<div><label for="dayStart">Balance at start of today ($)</label><input id="dayStart" type="number" inputmode="decimal" step="any"><div class="hint">Used for daily-loss rules. Blank = starting balance.</div></div>
+<div id="peakWrap"><label for="peakEod">Highest end-of-day balance so far ($)</label><input id="peakEod" type="number" inputmode="decimal" step="any"><div class="hint">Moves the trailing floor. Blank = starting balance.</div></div>
+</div>
+<div class="row">
+<div><label for="usePct">Use this share of the buffer (%)</label><input id="usePct" type="number" inputmode="decimal" step="any" value="50"></div>
+<div><label for="stopOuts">Survive this many full stop-outs in a row</label><input id="stopOuts" type="number" inputmode="decimal" step="1" value="2"></div>
+</div>
+<div class="row">
+<div><label for="inst">Futures contract (optional)</label><select id="inst"></select></div>
+<div><label for="stopPts">Stop distance in points (optional)</label><input id="stopPts" type="number" inputmode="decimal" step="any"></div>
+<div><label for="feeRt">Round-trip fee per contract ($)</label><input id="feeRt" type="number" inputmode="decimal" step="any" value="0"></div>
+</div>
+<div class="btnrow"><button id="go" type="button">Calculate</button><button id="share" type="button" class="ghost">Copy link</button><button id="clear" type="button" class="ghost">Clear saved numbers</button></div>
+<div class="toolmsg hint" role="status" aria-live="polite"></div>
+<div class="error" id="err" role="alert"></div>
+<div id="out" role="status" aria-live="polite"></div>
+<div id="plan" class="plan" hidden></div>
+</section>
+<p class="hint">Spot a mistake or a missing rule? <a class="report" href="mailto:support@limitward.app">Tell us</a> and we will fix it. Your numbers stay in your browser.</p>
+<section class="poll" data-question="pretrade_check" hidden aria-labelledby="poll-h">
+<h2 id="poll-h" style="margin-top:0">One quick question</h2>
+<p>Would you use an app that checks each trade against your own risk rules <em>before</em> you place it?</p>
+<div class="poll-buttons" role="group" aria-label="Your answer">
+<button type="button" data-answer="yes">Yes</button>
+<button type="button" data-answer="maybe">Maybe</button>
+<button type="button" data-answer="no">No</button>
+</div>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
+<h2>How "safe risk per trade" is worked out</h2>
+<p>It takes the room between your equity and the binding floor (the closer of the max-loss and daily-loss limits), uses only the share you choose (50% by default), and splits it across the number of full stop-outs you want to survive in a row (2 by default). This is a conservative planning aid, not a prediction or a recommendation.</p>
+<h2>Topstep Express Funded rules in plain English</h2>
+<ul class="plain"><li>The balance starts at $0, so the limit starts at -$2,000, -$3,000 or -$4,500 for the $50K, $100K and $150K accounts. This calculator uses the account size as the starting balance, which gives the same distances.</li><li>The limit locks at $0 (your starting balance in this calculator) once your balance reaches the starting limit amount, and also after your first payout. After a payout, use Custom rules with a static limit if you need to model it.</li><li>Both realized and unrealized P&amp;L count toward the limit. On breach the Express Funded Account is permanently closed (Topstep says a Back2Funded option may be available if you are eligible).</li></ul>
+<p><span class="badge">Checked 2026-10-20</span> Source: <a href="https://help.topstep.com/en/articles/8284204-what-is-the-maximum-loss-limit" rel="noopener">https://help.topstep.com/en/articles/8284204-what-is-the-maximum-loss-limit</a>. Rules change: confirm with Topstep before relying on this. Background: <a href="../../guides/trailing-drawdown-explained/">trailing drawdown explained</a>.</p>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<h3>How is the Topstep Express Funded limit different from the Combine?</h3>
+<p>The mechanics are the same end-of-day trailing limit, but the Express Funded Account balance starts at $0 and the limit starts below it. It locks at $0 once your balance reaches the starting limit amount, and also after your first payout.</p>
+<h3>What happens if I breach the limit on an Express Funded Account?</h3>
+<p>According to Topstep, the account is permanently closed. A Back2Funded option may be available if you are eligible.</p>
+<h3>Do unrealized losses count on the Express Funded Account?</h3>
+<p>Yes. Topstep says both realized and unrealized profit and loss count toward the Maximum Loss Limit.</p>
+</section>
+<section class="waitlist" aria-labelledby="wl-h">
+<h2 id="wl-h" style="margin-top:0">An app that keeps you inside your own rules</h2>
+<p>We are building a phone app that checks every trade against your risk rules <em>before</em> you place it, adds a cooldown after losses, and shows what rule-breaking cost you. Join the waitlist for early access.</p>
+<form class="wl" novalidate>
+<input type="email" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
+<button type="submit">Join the waitlist</button>
+<div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<label class="consent"><input type="checkbox" name="consent"> <span>I agree to receive emails from Sarang AI Technologies Inc. about the launch of Limitward. I can unsubscribe at any time. See our <a href="../../privacy/">privacy policy</a>.</span></label>
+</form>
+<div class="msg" role="status" aria-live="polite"></div>
+</section>
+</main>
+<footer class="site"><div class="wrap">
+<p>Limitward calculators are educational tools that do arithmetic on the numbers you enter. They are not investment, tax or legal advice, and they do not recommend any trade. Trading involves a risk of loss. Firm rules change often: always confirm the current rules with your firm before relying on a result.</p>
+<p><a href="../../guides/">Guides</a> · <a href="../../privacy/">Privacy policy</a></p>
+</div></footer>
+<script src="../../js/config.js"></script>
+<script src="../../js/calc.js"></script>
+<script src="../../js/presets.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

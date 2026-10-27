@@ -3,28 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FTMO drawdown calculator and rules explained</title>
-<meta name="description" content="Free FTMO 2-Step Challenge drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<title>FTMO 2-Step drawdown calculator and rules explained</title>
+<meta name="description" content="Free FTMO 2-Step drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://limitward.app/firms/ftmo/">
 <meta name="theme-color" content="#0f6b5c">
 <meta property="og:site_name" content="Limitward">
 <meta property="og:type" content="website">
-<meta property="og:title" content="FTMO drawdown calculator and rules explained">
-<meta property="og:description" content="Free FTMO 2-Step Challenge drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<meta property="og:title" content="FTMO 2-Step drawdown calculator and rules explained">
+<meta property="og:description" content="Free FTMO 2-Step drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
 <meta property="og:url" content="https://limitward.app/firms/ftmo/">
 <meta property="og:image" content="https://limitward.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FTMO drawdown calculator and rules explained">
-<meta name="twitter:description" content="Free FTMO 2-Step Challenge drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<meta name="twitter:title" content="FTMO 2-Step drawdown calculator and rules explained">
+<meta name="twitter:description" content="Free FTMO 2-Step drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
 <meta name="twitter:image" content="https://limitward.app/og.png">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
 <link rel="stylesheet" href="../../css/style.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FTMO drawdown calculator","url":"https://limitward.app/firms/ftmo/","description":"Drawdown calculator for the FTMO 2-Step Challenge (forex / CFD).","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Firm rules","item":"https://limitward.app/firms/"},{"@type":"ListItem","position":3,"name":"FTMO","item":"https://limitward.app/firms/ftmo/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FTMO 2-Step drawdown calculator","url":"https://limitward.app/firms/ftmo/","description":"Drawdown calculator for the FTMO 2-Step Challenge (forex / CFD).","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Firm rules","item":"https://limitward.app/firms/"},{"@type":"ListItem","position":3,"name":"FTMO 2-Step","item":"https://limitward.app/firms/ftmo/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the FTMO Max Daily Loss on the 2-Step Challenge?","acceptedAnswer":{"@type":"Answer","text":"It is 5% of the initial simulated capital. The limit is recalculated daily at 00:00 CE(S)T, starting from your account balance at that time."}},{"@type":"Question","name":"Is the FTMO daily loss measured on balance or equity?","acceptedAnswer":{"@type":"Answer","text":"Equity. FTMO measures it as balance plus open positions profit and loss, plus or minus swaps, minus commissions."}},{"@type":"Question","name":"Is the FTMO Max Loss static or trailing?","acceptedAnswer":{"@type":"Answer","text":"On the 2-Step Challenge it is a static 10% of the initial simulated capital. It does not move up with profits. Other FTMO products use different numbers, so check the product you bought."}}]}</script>
 </head>
 <body>
@@ -34,10 +35,11 @@
 <a href="../../position-size/">Position size</a>
 <a href="../../prop-firm-drawdown/">Prop-firm drawdown</a>
 <a href="../../firms/" aria-current="page">Firm rules</a>
+<a href="../../risk-reward-calculator/">Risk-reward</a>
 <a href="../../guides/">Guides</a>
 </nav></div></header>
 <main class="wrap">
-<h1>FTMO drawdown calculator</h1>
+<h1>FTMO 2-Step drawdown calculator</h1>
 <p class="lede">FTMO 2-Step Challenge (forex / CFD): Max Daily Loss is 5% of initial capital, measured on equity and recalculated at 00:00 CE(S)T from your balance at that time. Max Loss is a static 10% of initial capital.</p>
 <section class="tool" id="drawdown" data-firm="ftmo">
 <noscript><p class="note">This calculator needs JavaScript to run. Nothing you type is sent anywhere.</p></noscript>
@@ -69,10 +71,13 @@
 <div><label for="stopPts">Stop distance in points (optional)</label><input id="stopPts" type="number" inputmode="decimal" step="any"></div>
 <div><label for="feeRt">Round-trip fee per contract ($)</label><input id="feeRt" type="number" inputmode="decimal" step="any" value="0"></div>
 </div>
-<button id="go" type="button">Calculate</button>
+<div class="btnrow"><button id="go" type="button">Calculate</button><button id="share" type="button" class="ghost">Copy link</button><button id="clear" type="button" class="ghost">Clear saved numbers</button></div>
+<div class="toolmsg hint" role="status" aria-live="polite"></div>
 <div class="error" id="err" role="alert"></div>
 <div id="out" role="status" aria-live="polite"></div>
+<div id="plan" class="plan" hidden></div>
 </section>
+<p class="hint">Spot a mistake or a missing rule? <a class="report" href="mailto:support@limitward.app">Tell us</a> and we will fix it. Your numbers stay in your browser.</p>
 <section class="poll" data-question="pretrade_check" hidden aria-labelledby="poll-h">
 <h2 id="poll-h" style="margin-top:0">One quick question</h2>
 <p>Would you use an app that checks each trade against your own risk rules <em>before</em> you place it?</p>
@@ -85,7 +90,7 @@
 </section>
 <h2>How "safe risk per trade" is worked out</h2>
 <p>It takes the room between your equity and the binding floor (the closer of the max-loss and daily-loss limits), uses only the share you choose (50% by default), and splits it across the number of full stop-outs you want to survive in a row (2 by default). This is a conservative planning aid, not a prediction or a recommendation.</p>
-<h2>FTMO rules in plain English</h2>
+<h2>FTMO 2-Step rules in plain English</h2>
 <ul class="plain"><li>Daily loss is measured on equity: balance + open P/L ± swaps – commissions.</li><li>The max loss floor is static: it does not move up with profits.</li><li>The same percentages apply to the Challenge and Verification phases. The 1-Step and Instant products use different numbers.</li></ul>
 <p><span class="badge">Checked 2026-10-20</span> Source: <a href="https://ftmo.com/en/trading-objectives/" rel="noopener">https://ftmo.com/en/trading-objectives/</a>. Rules change: confirm with FTMO before relying on this. Background: <a href="../../guides/trailing-drawdown-explained/">trailing drawdown explained</a>.</p>
 <section class="faq">

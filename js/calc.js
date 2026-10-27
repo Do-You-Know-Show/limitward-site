@@ -156,11 +156,27 @@
     };
   }
 
+  /* A one-page plan for the day from a Calc.survival result. Pure arithmetic on the user's own numbers.
+     dailyLossLimit = risk per trade x number of full stop-outs the user chose to survive. Returns null if there is no room. */
+  function dailyPlan(surv, opts) {
+    opts = opts || {};
+    var n = opts.stopOuts == null ? 2 : opts.stopOuts;
+    if (!surv || surv.breached || !(surv.buffer > 0) || !(surv.safeRiskPerTrade > 0)) return null;
+    return {
+      riskPerTrade: surv.safeRiskPerTrade,
+      dailyLossLimit: round(surv.safeRiskPerTrade * n, 2),
+      stopAfterLosses: n,
+      floor: surv.bindingFloor,
+      floorRule: surv.bindingRule,
+      room: surv.buffer
+    };
+  }
+
   return {
     floorSize: floorSize, riskFromPercent: riskFromPercent,
     stockSize: stockSize, futuresSize: futuresSize, forexSize: forexSize, forexPipValuePerUnit: forexPipValuePerUnit,
     cryptoSize: cryptoSize, optionLongSize: optionLongSize, creditSpreadSize: creditSpreadSize,
     rMultiple: rMultiple, rewardRisk: rewardRisk, breakEvenWinRate: breakEvenWinRate, expectancyR: expectancyR,
-    maxLossFloor: maxLossFloor, dailyLossFloor: dailyLossFloor, survival: survival
+    maxLossFloor: maxLossFloor, dailyLossFloor: dailyLossFloor, survival: survival, dailyPlan: dailyPlan
   };
 });

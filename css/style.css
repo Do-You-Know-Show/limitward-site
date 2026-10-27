@@ -90,3 +90,18 @@ article ol.plain, article ul.plain { margin: 0 0 14px; }
 .faq h3 { margin: 18px 0 6px; font-size: 17px; }
 .ctarow { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
 .btn { margin-right: 6px; }
+
+.btnrow { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); font-weight: 500; }
+button.ghost:hover { border-color: var(--brand); }
+.toolmsg { min-height: 20px; margin-top: 8px; }
+.plan { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-top: 14px; }
+.plan[hidden] { display: none; }
+.plan h3 { margin: 0 0 8px; }
+.plan .ctarow { margin: 12px 0 0; }
+@media print {
+  body.print-plan * { visibility: hidden; }
+  body.print-plan #plan, body.print-plan #plan * { visibility: visible; }
+  body.print-plan #plan { position: absolute; left: 0; top: 0; width: 100%; border: 0; }
+  body.print-plan .noprint { display: none; }
+}

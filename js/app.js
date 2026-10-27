@@ -1,4 +1,5 @@
-/* UI glue. Uses window.Calc and window.Presets. All output is written with textContent (no innerHTML from user input). */
+/* UI glue. Uses window.Calc and window.Presets. All output is written with textContent (no innerHTML from user input).
+   Numbers you type stay in your browser (local storage and, if you press Copy link, in the link's # part). Nothing is sent to a server. */
 (function () {
   'use strict';
   var C = window.Calc, P = window.Presets;
@@ -45,6 +46,85 @@
   function req(v, name) {
     if (v === undefined || Number.isNaN(v)) throw new Error('Enter a number for ' + name + '.');
     return v;
+  }
+  function copyText(text, onDone) {
+    function fallback() {
+      try {
+        var t = el('textarea'); t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select(); var ok = document.execCommand('copy'); document.body.removeChild(t);
+        onDone(ok);
+      } catch (e) { onDone(false); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { onDone(true); }, fallback);
+    else fallback();
+  }
+
+  /* ---------------- Remember numbers, share link ---------------- */
+  var STATE_KEY = 'lw_state_' + location.pathname;
+  var ID_RE = /^[A-Za-z][A-Za-z0-9]{0,30}$/;
+  function b64enc(s) { return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+  function b64dec(s) { s = s.replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; return decodeURIComponent(escape(atob(s))); }
+  function sanitize(state) {
+    // Accept only {a?: string, v: {id: short string}} and drop everything else.
+    if (!state || typeof state !== 'object' || typeof state.v !== 'object' || !state.v) return null;
+    var clean = { v: {} };
+    if (typeof state.a === 'string' && ID_RE.test(state.a)) clean.a = state.a;
+    Object.keys(state.v).slice(0, 40).forEach(function (k) {
+      var val = state.v[k];
+      if (ID_RE.test(k) && (typeof val === 'string' || typeof val === 'number') && String(val).length <= 40) clean.v[k] = String(val);
+    });
+    return clean;
+  }
+  function readHashState() {
+    var m = /(?:^|[#&])s=([A-Za-z0-9_-]+)/.exec(location.hash || '');
+    if (!m || m[1].length > 2000) return null;
+    try { return sanitize(JSON.parse(b64dec(m[1]))); } catch (e) { return null; }
+  }
+  function collect(root) {
+    var v = {};
+    Array.prototype.forEach.call(root.querySelectorAll('input, select'), function (e) { if (e.id && ID_RE.test(e.id)) v[e.id] = e.value; });
+    return v;
+  }
+  function applyValues(root, v, skip) {
+    Object.keys(v || {}).forEach(function (id) {
+      if (!ID_RE.test(id) || (skip && skip.indexOf(id) >= 0)) return;
+      var e = root.querySelector('#' + id);
+      if (!e) return;
+      var val = String(v[id]);
+      if (e.tagName === 'SELECT') {
+        var ok = false;
+        for (var i = 0; i < e.options.length; i++) if (e.options[i].value === val) ok = true;
+        if (!ok) return;
+      }
+      e.value = val;
+    });
+  }
+  /* api = { get(): state, set(state): void }. Returns true if the page was restored from a shared link. */
+  function wirePersistence(root, api) {
+    var fromHash = readHashState();
+    var saved = null;
+    try { saved = sanitize(JSON.parse(localStorage.getItem(STATE_KEY) || 'null')); } catch (e) { saved = null; }
+    var state = fromHash || saved;
+    if (state) { try { api.set(state); } catch (e) { /* ignore a bad saved state */ } }
+    var timer;
+    function save() {
+      clearTimeout(timer);
+      timer = setTimeout(function () { try { localStorage.setItem(STATE_KEY, JSON.stringify(api.get())); } catch (e) { /* storage unavailable */ } }, 300);
+    }
+    root.addEventListener('input', save);
+    root.addEventListener('change', save);
+    var msg = $('.toolmsg', root);
+    var share = $('#share', root), clear = $('#clear', root);
+    if (share) share.addEventListener('click', function () {
+      var url = location.origin + location.pathname + '#s=' + b64enc(JSON.stringify(api.get()));
+      copyText(url, function (ok) { if (msg) msg.textContent = ok ? 'Link copied. It contains your numbers in the address, and nothing is sent to us.' : 'Your link is now in the address bar. Copy it from there.'; });
+      try { history.replaceState(null, '', '#s=' + b64enc(JSON.stringify(api.get()))); } catch (e) { /* ignore */ }
+    });
+    if (clear) clear.addEventListener('click', function () {
+      try { localStorage.removeItem(STATE_KEY); } catch (e) { /* ignore */ }
+      location.href = location.pathname;
+    });
+    return !!fromHash;
   }
 
   /* ---------------- Position size calculator ---------------- */
@@ -143,7 +223,7 @@
       $('#riskLabel', root).textContent = this.value === 'pct' ? 'Risk per trade (% of account)' : 'Risk per trade ($)';
       $('#acctWrap', root).style.display = this.value === 'pct' ? '' : 'none';
     });
-    $('#go', root).addEventListener('click', function () {
+    function run() {
       err.textContent = '';
       try {
         var mode = $('#riskMode', root).value;
@@ -154,16 +234,26 @@
       } catch (e) {
         out.textContent = ''; out.className = ''; err.textContent = e.message;
       }
-    });
+    }
+    $('#go', root).addEventListener('click', run);
     select(current);
+    var fromLink = wirePersistence(root, {
+      get: function () { return { a: current, v: collect(root) }; },
+      set: function (s) {
+        if (s.a && assets[s.a]) select(s.a);
+        applyValues(root, s.v);
+        $('#riskMode', root).dispatchEvent(new Event('change'));
+      }
+    });
+    if (fromLink) run();
   }
 
-  /* ---------------- Drawdown / survival calculator ---------------- */
+  /* ---------------- Drawdown / survival calculator + daily plan ---------------- */
   function initDrawdown(root) {
     var preset = root.getAttribute('data-firm');
     var firmSel = $('#firm', root), acctSel = $('#acct', root), modelSel = $('#model', root);
-    var out = $('#out', root), err = $('#err', root);
-    P.firms.forEach(function (f) { firmSel.appendChild(el('option', { value: f.id }, f.name + ' – ' + f.product)); });
+    var out = $('#out', root), err = $('#err', root), planBox = $('#plan', root);
+    P.firms.forEach(function (f) { firmSel.appendChild(el('option', { value: f.id }, (f.label || f.name) + ' – ' + f.product)); });
     firmSel.appendChild(el('option', { value: 'custom' }, 'Custom rules'));
     if (preset) firmSel.value = preset;
     var firm = function () { return P.firms.filter(function (f) { return f.id === firmSel.value; })[0]; };
@@ -178,14 +268,51 @@
         $('#startBal', root).value = f.accounts[0].start;
       }
     }
-    firmSel.addEventListener('change', syncFirm);
+    firmSel.addEventListener('change', function () {
+      syncFirm();
+      // On a firm page, switching firm goes to that firm's page so the rules text matches.
+      var f = firm();
+      if (preset && f && f.id !== preset) location.href = '../' + f.id + '/';
+      if (preset && !f) location.href = '../../prop-firm-drawdown/';
+    });
     modelSel.addEventListener('change', syncFirm);
     acctSel.addEventListener('change', function () { var f = firm(); if (f) $('#startBal', root).value = f.accounts[Number(acctSel.value)].start; });
     P.futures.forEach(function (x) { $('#inst', root).appendChild(el('option', { value: x.symbol }, x.symbol + ' – ' + x.name)); });
     syncFirm();
 
-    $('#go', root).addEventListener('click', function () {
-      err.textContent = ''; out.textContent = ''; out.className = '';
+    function renderPlan(plan, extra) {
+      planBox.textContent = '';
+      if (!plan) { planBox.hidden = true; return; }
+      var lines = [
+        ['Risk per trade', 'no more than ' + money(plan.riskPerTrade)],
+        ['Daily loss limit', money(plan.dailyLossLimit) + '. When I reach it, I stop for the day'],
+        ['Stop after', plan.stopAfterLosses + ' losing trades in a row'],
+        ['Firm limit', 'floor ' + money(plan.floor) + ' (' + plan.floorRule + '), room ' + money(plan.room)]
+      ];
+      if (extra) lines.push(['Size', extra]);
+      planBox.hidden = false;
+      planBox.appendChild(el('h3', null, 'Your plan for today'));
+      var ul = el('ul', { class: 'plain' });
+      lines.forEach(function (l) { var li = el('li'); li.appendChild(el('strong', null, l[0] + ': ')); li.appendChild(document.createTextNode(l[1])); ul.appendChild(li); });
+      planBox.appendChild(ul);
+      planBox.appendChild(el('p', { class: 'hint' }, 'A planning aid built from your own numbers, not advice. Confirm the rules with your firm.'));
+      var row = el('div', { class: 'ctarow noprint' });
+      var copy = el('button', { type: 'button' }, 'Copy plan');
+      var print = el('button', { type: 'button', class: 'ghost' }, 'Print');
+      var msg = el('span', { class: 'hint', role: 'status' });
+      var text = 'My trading plan for today (limitward.app)\n' + lines.map(function (l) { return '- ' + l[0] + ': ' + l[1]; }).join('\n') + '\nA planning aid from my own numbers, not advice.';
+      copy.addEventListener('click', function () { copyText(text, function (ok) { msg.textContent = ok ? 'Copied.' : 'Could not copy.'; }); });
+      print.addEventListener('click', function () {
+        document.body.classList.add('print-plan');
+        window.print();
+        setTimeout(function () { document.body.classList.remove('print-plan'); }, 500);
+      });
+      row.appendChild(copy); row.appendChild(print); row.appendChild(msg);
+      planBox.appendChild(row);
+    }
+
+    function run() {
+      err.textContent = ''; out.textContent = ''; out.className = ''; planBox.hidden = true;
       try {
         var f = firm(), rule, startBalance = req(read('startBal'), 'starting balance');
         if (f) {
@@ -195,22 +322,66 @@
           var dl = read('dailyLoss'); if (dl) rule.dailyLossAmount = dl;
         }
         var equity = req(read('equity'), 'current equity');
+        var stopOuts = req(read('stopOuts'), 'stop-outs');
         var s = C.survival(rule,
           { startBalance: startBalance, equity: equity, dayStartBalance: read('dayStart') == null ? startBalance : read('dayStart'), peakEodBalance: read('peakEod') == null ? startBalance : read('peakEod') },
-          { bufferUsePct: req(read('usePct'), 'buffer to use'), stopOuts: req(read('stopOuts'), 'stop-outs') });
+          { bufferUsePct: req(read('usePct'), 'buffer to use'), stopOuts: stopOuts });
         var rows = [['Max-loss floor', money(s.maxLossFloor)]];
         if (s.dailyLossFloor != null) rows.push(['Daily-loss floor', money(s.dailyLossFloor)]);
         rows.push(['Binding rule', s.bindingRule], ['Buffer to the floor', money(s.buffer)], ['Safe risk per trade', money(s.safeRiskPerTrade)]);
-        var stopPts = read('stopPts');
+        var stopPts = read('stopPts'), extra = null;
         if (stopPts && s.safeRiskPerTrade > 0) {
           var inst = P.futures.filter(function (x) { return x.symbol === $('#inst', root).value; })[0];
           var fee = read('feeRt') || 0;
           var sz = C.futuresSize({ riskDollars: s.safeRiskPerTrade, entry: 1000, stop: 1000 - stopPts, tickSize: inst.tickSize, tickValue: inst.tickValue, feeRoundTrip: fee });
+          extra = inst.symbol + ': ' + sz.size + (sz.size === 1 ? ' contract' : ' contracts') + ' for a ' + stopPts + '-point stop';
           rows.push([inst.symbol + ' size for a ' + stopPts + '-point stop', sz.size + (sz.size === 1 ? ' contract' : ' contracts')]);
         }
         renderResult(out, s.breached ? 'At or below the floor' : money(s.buffer) + ' of room', rows, s.breached);
+        renderPlan(C.dailyPlan(s, { stopOuts: stopOuts }), extra);
       } catch (e) { err.textContent = e.message; }
+    }
+    $('#go', root).addEventListener('click', run);
+
+    var fromLink = wirePersistence(root, {
+      get: function () { return { v: collect(root) }; },
+      set: function (s) {
+        var v = s.v || {};
+        if (!preset && v.firm) {
+          var ok = false; for (var i = 0; i < firmSel.options.length; i++) if (firmSel.options[i].value === v.firm) ok = true;
+          if (ok) { firmSel.value = v.firm; syncFirm(); }
+        }
+        applyValues(root, v, ['firm', 'acct']);
+        if (v.acct && acctSel.querySelector('option[value="' + String(v.acct).replace(/[^0-9]/g, '') + '"]')) acctSel.value = String(v.acct).replace(/[^0-9]/g, '');
+        if (!firm()) syncFirm(); // custom rules: refresh which fields show (does not touch values)
+      }
     });
+    if (fromLink) run();
+  }
+
+  /* ---------------- Risk-reward / expectancy calculator ---------------- */
+  function initRiskReward(root) {
+    var out = $('#out', root), err = $('#err', root);
+    function run() {
+      err.textContent = ''; out.textContent = ''; out.className = '';
+      try {
+        var entry = req(read('entry'), 'entry'), stop = req(read('stop'), 'stop'), target = req(read('target'), 'target');
+        if (stop === entry || target === entry) throw new Error('Entry, stop and target must all be different.');
+        if ((target - entry) * (stop - entry) > 0) throw new Error('The stop and the target should be on opposite sides of the entry.');
+        var rr = C.rewardRisk(entry, stop, target);
+        var rows = [['Risk per unit', Math.abs(entry - stop).toFixed(4).replace(/\.?0+$/, '')], ['Reward per unit', Math.abs(target - entry).toFixed(4).replace(/\.?0+$/, '')], ['Break-even win rate (before costs)', (C.breakEvenWinRate(rr) * 100).toFixed(1) + '%']];
+        var wr = read('winRate');
+        if (wr !== undefined) {
+          if (Number.isNaN(wr) || wr <= 0 || wr >= 100) throw new Error('Win rate must be between 0 and 100.');
+          var ex = C.expectancyR(wr / 100, rr, 1);
+          rows.push(['Your win rate', wr + '%'], ['Expectancy per trade', (ex >= 0 ? '+' : '') + ex.toFixed(2) + ' R']);
+        }
+        renderResult(out, '1 : ' + rr.toFixed(2) + ' risk-reward', rows, false);
+      } catch (e) { err.textContent = e.message; }
+    }
+    $('#go', root).addEventListener('click', run);
+    var fromLink = wirePersistence(root, { get: function () { return { v: collect(root) }; }, set: function (s) { applyValues(root, s.v); } });
+    if (fromLink) run();
   }
 
   /* ---------------- Waitlist ---------------- */
@@ -266,10 +437,21 @@
     });
   }
 
+  /* "Report a mistake" links open an email with the page address filled in. */
+  function initReportLinks() {
+    Array.prototype.forEach.call(document.querySelectorAll('a.report'), function (a) {
+      a.href = 'mailto:support@limitward.app?subject=' + encodeURIComponent('Correction: ' + document.title) +
+        '&body=' + encodeURIComponent('Page: ' + location.href.split('#')[0] + '\n\nWhat looks wrong or missing?\n\n');
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var ps = $('#position-size'); if (ps) initPositionSize(ps);
     var dd = $('#drawdown'); if (dd) initDrawdown(dd);
+    var rr = $('#risk-reward'); if (rr) initRiskReward(rr);
     initWaitlist();
     initPoll();
+    initReportLinks();
+    if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('/sw.js').catch(function () { /* offline support is optional */ });
   });
 })();

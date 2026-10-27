@@ -22,6 +22,7 @@
 <meta name="twitter:image" content="https://limitward.app/og.png">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../manifest.webmanifest">
 <link rel="stylesheet" href="../css/style.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Position size calculator","url":"https://limitward.app/position-size/","description":"Free position size calculator for stocks, futures, forex, crypto and options.","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Position size calculator","item":"https://limitward.app/position-size/"}]}</script>
@@ -34,6 +35,7 @@
 <a href="../position-size/" aria-current="page">Position size</a>
 <a href="../prop-firm-drawdown/">Prop-firm drawdown</a>
 <a href="../firms/">Firm rules</a>
+<a href="../risk-reward-calculator/">Risk-reward</a>
 <a href="../guides/">Guides</a>
 </nav></div></header>
 <main class="wrap">
@@ -48,10 +50,12 @@
 <div><label for="riskVal" id="riskLabel">Risk per trade (% of account)</label><input id="riskVal" type="number" inputmode="decimal" step="any" value="1"></div>
 </div>
 <div id="fields"></div>
-<button id="go" type="button">Calculate size</button>
+<div class="btnrow"><button id="go" type="button">Calculate size</button><button id="share" type="button" class="ghost">Copy link</button><button id="clear" type="button" class="ghost">Clear saved numbers</button></div>
+<div class="toolmsg hint" role="status" aria-live="polite"></div>
 <div class="error" id="err" role="alert"></div>
 <div id="out" role="status" aria-live="polite"></div>
 </section>
+<p class="hint">Spot a mistake or a missing rule? <a class="report" href="mailto:support@limitward.app">Tell us</a> and we will fix it. Your numbers stay in your browser.</p>
 <section class="poll" data-question="pretrade_check" hidden aria-labelledby="poll-h">
 <h2 id="poll-h" style="margin-top:0">One quick question</h2>
 <p>Would you use an app that checks each trade against your own risk rules <em>before</em> you place it?</p>

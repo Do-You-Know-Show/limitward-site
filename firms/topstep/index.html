@@ -3,28 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Topstep drawdown calculator and rules explained</title>
-<meta name="description" content="Free Topstep Trading Combine drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<title>Topstep Combine drawdown calculator and rules explained</title>
+<meta name="description" content="Free Topstep Combine drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://limitward.app/firms/topstep/">
 <meta name="theme-color" content="#0f6b5c">
 <meta property="og:site_name" content="Limitward">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Topstep drawdown calculator and rules explained">
-<meta property="og:description" content="Free Topstep Trading Combine drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<meta property="og:title" content="Topstep Combine drawdown calculator and rules explained">
+<meta property="og:description" content="Free Topstep Combine drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
 <meta property="og:url" content="https://limitward.app/firms/topstep/">
 <meta property="og:image" content="https://limitward.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Topstep drawdown calculator and rules explained">
-<meta name="twitter:description" content="Free Topstep Trading Combine drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
+<meta name="twitter:title" content="Topstep Combine drawdown calculator and rules explained">
+<meta name="twitter:description" content="Free Topstep Combine drawdown calculator: your loss-limit floor, remaining room and a safe per-trade risk. Rules checked 2026-10-20.">
 <meta name="twitter:image" content="https://limitward.app/og.png">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
 <link rel="stylesheet" href="../../css/style.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Topstep drawdown calculator","url":"https://limitward.app/firms/topstep/","description":"Drawdown calculator for the Topstep Trading Combine (futures).","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Firm rules","item":"https://limitward.app/firms/"},{"@type":"ListItem","position":3,"name":"Topstep","item":"https://limitward.app/firms/topstep/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Topstep Combine drawdown calculator","url":"https://limitward.app/firms/topstep/","description":"Drawdown calculator for the Topstep Trading Combine (futures).","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Limitward","url":"https://limitward.app","logo":"https://limitward.app/apple-touch-icon.png"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://limitward.app/"},{"@type":"ListItem","position":2,"name":"Firm rules","item":"https://limitward.app/firms/"},{"@type":"ListItem","position":3,"name":"Topstep Combine","item":"https://limitward.app/firms/topstep/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does the Topstep Maximum Loss Limit work?","acceptedAnswer":{"@type":"Answer","text":"In the Trading Combine the Maximum Loss Limit starts $2,000, $3,000 or $4,500 below the account size (for the $50K, $100K and $150K accounts). It rises as your end-of-day balance grows and never moves down."}},{"@type":"Question","name":"Do open (unrealized) losses count toward the Topstep limit?","acceptedAnswer":{"@type":"Answer","text":"Yes. According to Topstep, both realized and unrealized profit and loss count toward the Maximum Loss Limit, so an open loss that reaches the limit can trigger liquidation."}},{"@type":"Question","name":"When does the Topstep Maximum Loss Limit stop trailing?","acceptedAnswer":{"@type":"Answer","text":"In the Trading Combine it locks permanently once it reaches your starting balance."}}]}</script>
 </head>
 <body>
@@ -34,10 +35,11 @@
 <a href="../../position-size/">Position size</a>
 <a href="../../prop-firm-drawdown/">Prop-firm drawdown</a>
 <a href="../../firms/" aria-current="page">Firm rules</a>
+<a href="../../risk-reward-calculator/">Risk-reward</a>
 <a href="../../guides/">Guides</a>
 </nav></div></header>
 <main class="wrap">
-<h1>Topstep drawdown calculator</h1>
+<h1>Topstep Combine drawdown calculator</h1>
 <p class="lede">Topstep Trading Combine (futures): The Maximum Loss Limit (MLL) trails your end-of-day balance upward, never moves down, and locks once it reaches your starting balance. Open (unrealized) losses count in real time.</p>
 <section class="tool" id="drawdown" data-firm="topstep">
 <noscript><p class="note">This calculator needs JavaScript to run. Nothing you type is sent anywhere.</p></noscript>
@@ -69,10 +71,13 @@
 <div><label for="stopPts">Stop distance in points (optional)</label><input id="stopPts" type="number" inputmode="decimal" step="any"></div>
 <div><label for="feeRt">Round-trip fee per contract ($)</label><input id="feeRt" type="number" inputmode="decimal" step="any" value="0"></div>
 </div>
-<button id="go" type="button">Calculate</button>
+<div class="btnrow"><button id="go" type="button">Calculate</button><button id="share" type="button" class="ghost">Copy link</button><button id="clear" type="button" class="ghost">Clear saved numbers</button></div>
+<div class="toolmsg hint" role="status" aria-live="polite"></div>
 <div class="error" id="err" role="alert"></div>
 <div id="out" role="status" aria-live="polite"></div>
+<div id="plan" class="plan" hidden></div>
 </section>
+<p class="hint">Spot a mistake or a missing rule? <a class="report" href="mailto:support@limitward.app">Tell us</a> and we will fix it. Your numbers stay in your browser.</p>
 <section class="poll" data-question="pretrade_check" hidden aria-labelledby="poll-h">
 <h2 id="poll-h" style="margin-top:0">One quick question</h2>
 <p>Would you use an app that checks each trade against your own risk rules <em>before</em> you place it?</p>
@@ -85,7 +90,7 @@
 </section>
 <h2>How "safe risk per trade" is worked out</h2>
 <p>It takes the room between your equity and the binding floor (the closer of the max-loss and daily-loss limits), uses only the share you choose (50% by default), and splits it across the number of full stop-outs you want to survive in a row (2 by default). This is a conservative planning aid, not a prediction or a recommendation.</p>
-<h2>Topstep rules in plain English</h2>
+<h2>Topstep Combine rules in plain English</h2>
 <ul class="plain"><li>Monitored in real time, but the floor only updates at the end of each trading day.</li><li>Both realized and unrealized P&amp;L count toward the limit.</li><li>On breach the Combine account is liquidated and you must Reset before funding.</li></ul>
 <p><span class="badge">Checked 2026-10-20</span> Source: <a href="https://help.topstep.com/en/articles/8284204-what-is-the-maximum-loss-limit" rel="noopener">https://help.topstep.com/en/articles/8284204-what-is-the-maximum-loss-limit</a>. Rules change: confirm with Topstep before relying on this. Background: <a href="../../guides/trailing-drawdown-explained/">trailing drawdown explained</a>.</p>
 <section class="faq">
